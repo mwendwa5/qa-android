@@ -85,7 +85,7 @@
                     android:layout_margin="5dp"
                     android:padding="5dp" >
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_email"
                         android:layout_margin="10dp"
                         android:layout_width="match_parent"
@@ -102,9 +102,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_username"
                         android:layout_margin="10dp"
                         android:layout_width="match_parent"
@@ -120,9 +120,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                    <android.support.design.widget.TextInputLayout
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/text_input_password"
                         android:layout_margin="10dp"
                         android:layout_width="match_parent"
@@ -140,7 +140,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
 
-                    </android.support.design.widget.TextInputLayout>
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
                         android:id="@+id/button_register"
@@ -180,7 +180,7 @@
                             android:textStyle="bold"
                             android:layout_marginTop="10dp"
                             android:layout_marginRight="10dp"
-                            android:text="@string/Login"
+                            android:text="@string/login"
                             android:layout_weight="50"
                             android:textSize="18sp"
                             android:layout_width="wrap_content"

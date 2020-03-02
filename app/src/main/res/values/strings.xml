@@ -72,7 +72,7 @@
     <string name="success">success</string>
     <string name="thank_feedback">Thank you for your feedback</string>
     <string name="exit">Are you sure want to exit now?</string>
-    <string name="Login">Login</string>
+    <string name="login">Login</string>
     <string name="your_email">Email Address</string>
     <string name="your_username">Preffered Username</string>
     <string name="your_password">Password</string>
@@ -196,7 +196,7 @@
     <string name="all_categories">All categories</string>
     <string name="title_activity_basic">BasicActivity</string>
 
-    <string name="user_Login">Login to your Account</string>
+    <string name="user_login">Login to your Account</string>
     <string name="user_register">Register your Account</string>
     <string name="title_activity_Login">Sign in</string>
     <!-- Strings related to Login -->
