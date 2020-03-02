@@ -31,7 +31,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.ads.*;
+//import com.google.android.gms.ads.*;
 import com.appsmata.qtoa.fragments.*;
 import com.appsmata.qtoa.models.BackgroundDrawer;
 import com.appsmata.qtoa.models.Callback.*;
@@ -50,8 +50,8 @@ import com.appsmata.qtoa.R;
 
 public class CategoryAll extends AppCompatActivity{
 
-    private InterstitialAd interstitialAd;
-    private AdRequest adRequest;
+    //private InterstitialAd interstitialAd;
+    //private AdRequest adRequest;
     NavigationView navigationView;
     DatabaseHelpers db;
     NestedScrollView nestedScrollView;
@@ -286,28 +286,28 @@ public class CategoryAll extends AppCompatActivity{
                     .setNegativeButton(android.R.string.no, null)
                     .show();
             loadAdInterstial();
-            interstitialAd.setAdListener(new AdListener(){
+            /*interstitialAd.setAdListener(new AdListener(){
                 @Override
                 public void onAdLoaded() {
                     super.onAdLoaded();
                     showInterstial();
                 }
-            });
+            });*/
         }
         return true;
     }
 
     private void loadAdInterstial(){
-        adRequest = new AdRequest.Builder().build();
+        /*adRequest = new AdRequest.Builder().build();
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId(getString(R.string.interstitial_ads));
-        interstitialAd.loadAd(adRequest);
+        interstitialAd.loadAd(adRequest);*/
     }
 
     private void showInterstial(){
-        if (interstitialAd.isLoaded()){
+        /*if (interstitialAd.isLoaded()){
             interstitialAd.show();
-        }
+        }*/
     }
 
     private void updateFragment(Intent activity){

@@ -17,7 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.iid.FirebaseInstanceId;
+//import com.google.firebase.iid.FirebaseInstanceId;
 
 import com.appsmata.qtoa.shared.SharedStore;
 import com.appsmata.qtoa.R;
@@ -102,7 +102,7 @@ public class GuidePosts extends AppCompatActivity{
 //        WHEN YOU WANT USE LOGIN AND STORE TOKEN TO DB, YOU CAN USE SHAREDPREFERENCES SUCH AS BELOW
 //        SharedPreferences preferences = getApplicationContext().getSharedPreferences(getString(R.string.FCM_PREF), Context.MODE_PRIVATE);
 //        final String tokens = preferences.getString(getString(R.string.FCM_TOKEN), "");
-        FirebaseInstanceId.getInstance().getToken();
+        //FirebaseInstanceId.getInstance().getToken();
     }
 
     public void addDots(int dots){
