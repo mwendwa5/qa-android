@@ -32,6 +32,19 @@ public interface API {
 
     @Headers({CACHE, AGENT}) @GET(AppChecker) Call<CallbackApp> AppChecker();
 
+    /*@FormUrlEncoded
+    @POST(BaseUrlConfig.UserLastseen)
+    Call<CallbackUser> UserLastseen(
+            @Field("userid") String userid
+    );*/
+
+    @FormUrlEncoded
+    @POST(BaseUrlConfig.UserLogin)
+    Call<CallbackUser> UserLogin(
+            @Field("handle") String handle,
+            @Field("password") String password
+    );
+
     @FormUrlEncoded
     @POST(AskNow)
     Call<CallbackPostSingle> AskNow(

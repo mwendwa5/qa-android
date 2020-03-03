@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -52,6 +53,7 @@ public class UserRegister extends AppCompatActivity {
     private int id_userse;
     private String id_users;
     private Bitmap bitmap;
+    private TextView login;
     private AlertDialog.Builder builder;
     private AlertDialog dialog, alertDialog1, alertDialog2;
 
@@ -66,6 +68,7 @@ public class UserRegister extends AppCompatActivity {
         prefget = PreferenceManager.getDefaultSharedPreferences(this);
         prefedit = prefget.edit();
 
+        login = findViewById(R.id.login);
         txtEmail = findViewById(R.id.input_email);
         txtHandle = findViewById(R.id.input_handle);
         txtPassword = findViewById(R.id.input_password);
@@ -92,28 +95,12 @@ public class UserRegister extends AppCompatActivity {
             }
         });
 
-    }
-
-    private void showPopUp(){
-        builder = new AlertDialog.Builder(this);
-        View view = getLayoutInflater().inflate(R.layout.card_upload_photo, null);
-        user_image = view.findViewById(R.id.user_image);
-        choose_photo = view.findViewById(R.id.choose_photo);
-        go_profile = view.findViewById(R.id.go_profile);
-
-        builder.setView(view);
-        dialog = builder.create();
-        dialog.setCancelable(false);
-        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
-
-        choose_photo.setOnClickListener(new View.OnClickListener() {
+        login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                choosePhoto();
+                startActivity(new Intent(UserRegister.this, UserLogin.class));
             }
         });
-
     }
 
     private void showFeedback(String message){
@@ -138,13 +125,6 @@ public class UserRegister extends AppCompatActivity {
         builder.show();
     }
 
-    private void choosePhoto(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Photo"), 1);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -160,70 +140,6 @@ public class UserRegister extends AppCompatActivity {
             //uploadPhoto(String.valueOf(id_userse), getBitmap(bitmap));
             Log.d("CheckUpload", String.valueOf(id_userse));
         }
-    }
-
-    private void uploadPhoto(final String id, final String image) {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage(getResources().getString(R.string.loading_upload_image));
-        progressDialog.show();
-
-        final StringRequest request = new StringRequest(Request.Method.POST, prefget.getString("app_base_url", BaseUrlConfig.BaseUrl) + BaseUrlConfig.UPDATE_IMAGE_USERS, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                progressDialog.dismiss();
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("success");
-
-                    if (success.equals("QtoAndyKey")){
-
-                        Snackbar.make(coordinator_layout, R.string.image_upload, Snackbar.LENGTH_SHORT).show();
-                        prefget.edit().remove("Login_user_id_img").apply();
-                        prefget.edit().remove("Login_profile_image").apply();
-
-                        go_profile.setVisibility(View.VISIBLE);
-                        go_profile.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                startActivity(new Intent(UserRegister.this, UserLogin.class));
-                            }
-                        });
-
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(), R.string.failed_upload_image, Toast.LENGTH_LONG).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), R.string.upload_image_error, Toast.LENGTH_LONG).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> param = new HashMap<String, String>();
-                param.put("User_Id", id);
-                param.put("profile_image", image);
-                return param;
-            }
-        };
-
-        //MySingleton.getmInstance(this).addToRequest(request);
-    }
-
-    private String getBitmap(Bitmap bitmap){
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
-
-        byte[] img = outputStream.toByteArray();
-        String encoding = Base64.encodeToString(img, Base64.DEFAULT);
-
-        return encoding;
     }
 
     private void registerUser(final String handle, final String email, final String password) {
