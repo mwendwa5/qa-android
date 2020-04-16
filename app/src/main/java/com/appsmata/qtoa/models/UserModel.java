@@ -8,5 +8,9 @@ public class UserModel {
     public String email;
     public Integer success;
     public String message;
-    //userid, handle, points, flags, email
+    public String level;
+    public String created;
+    public String loggedin;
+    public String avatarblobid;
+    public Integer wallposts;
 }

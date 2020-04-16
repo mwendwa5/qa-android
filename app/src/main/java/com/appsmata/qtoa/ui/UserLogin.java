@@ -1,6 +1,7 @@
 package com.appsmata.qtoa.ui;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -103,28 +104,6 @@ public class UserLogin extends AppCompatActivity{
         builder.show();
     }
 
-    private void showFeedback(String message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Logging you Failed");
-        builder.setMessage(message);
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-
-            }
-        });
-
-        builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                String passkey = inputPasskey.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
-                loginUser(passkey, password);
-            }
-        });
-        builder.show();
-    }
-
     public void loginUser(final String passkey, final String password){
         showDialog(true);
         API api = CallJson.callJson();
@@ -148,66 +127,6 @@ public class UserLogin extends AppCompatActivity{
             }
 
         });
-    }
-
-    public void loginUserx(final String passkey, final String password){
-        showDialog();
-
-        StringRequest request = new StringRequest(Request.Method.POST,
-                prefget.getString("app_base_url", BaseUrlConfig.BaseUrl) + BaseUrlConfig.UserLogin,
-                new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                hideDialog();
-                try{
-                    JSONObject jsonObject = new JSONObject(response);
-                    String success = jsonObject.getString("success");
-                    String message = jsonObject.getString("message");
-
-                    if (success.equals("1")) {
-                        JSONObject user = jsonObject.getJSONObject("data");
-
-                        prefedit.putBoolean("app_user_loggedin", true);
-                        prefedit.putInt("user_userid", Integer.parseInt(user.getString("userid")));
-                        //prefedit.putString("user_uniqueid", user.getString("uid"));
-                        prefedit.putString("user_email", user.getString("email"));
-                        prefedit.putString("user_level", user.getString("level"));
-                        prefedit.putString("user_handle", user.getString("handle"));
-                        prefedit.putString("user_created", user.getString("created"));
-                        prefedit.putString("user_loggedin", user.getString("loggedin"));
-                        prefedit.putString("user_avatarblobid", user.getString("avatarblobid"));
-                        prefedit.putInt("user_points", Integer.parseInt(user.getString("points")));
-                        prefedit.putInt("user_wallposts", Integer.parseInt(user.getString("wallposts")));
-                        prefedit.apply();
-
-                        startActivity(new Intent(UserLogin.this, HomeView.class));
-                        finish();
-                    } else{
-                        prefedit.putBoolean("app_user_loggedin", false);
-                        prefedit.apply();
-                        showFeedback(message);
-                        Log.d("test", response);
-                    }
-                }catch (JSONException e){
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams(){
-                Map<String, String> param = new HashMap<String, String>();
-                param.put("emailhandle", passkey);
-                param.put("password", password);
-
-                return param;
-            }
-
-        };
     }
 
     private void handleUserData() {
@@ -236,13 +155,7 @@ public class UserLogin extends AppCompatActivity{
 
         switch (errorno) {
             case 1:
-                if (!prefget.getBoolean("app_books_loaded", false)) {
-                    startActivity(new Intent(BbUserSignin.this, CcBooksLoad.class));
-                }
-                else if (prefget.getBoolean("app_books_reload", false)) {
-                    startActivity(new Intent(BbUserSignin.this, CcBooksLoad.class));
-                }
-                else startActivity(new Intent(BbUserSignin.this, DdStartPage.class));
+                startActivity(new Intent(UserLogin.this, HomeView.class));
                 finish();
                 break;
 
@@ -279,9 +192,9 @@ public class UserLogin extends AppCompatActivity{
             builder.setPositiveButton("Retry", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface arg0, int arg1) {
-                    String code = inputCode.getText().toString().trim();
-                    String phone = inputPhone.getText().toString().trim();
-                    signinUser(code + phone);
+                    String passkey = inputPasskey.getText().toString().trim();
+                    String password = inputPassword.getText().toString().trim();
+                    loginUser(passkey, password);
                 }
             });
         }
