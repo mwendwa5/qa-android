@@ -25,7 +25,6 @@ import com.bumptech.glide.Glide;
 import com.appsmata.qtoa.R;
 import com.appsmata.qtoa.adapters.*;
 import com.appsmata.qtoa.fragments.*;
-import com.appsmata.qtoa.shared.PrefManagers;
 import com.appsmata.qtoa.components.*;
 import com.google.android.material.tabs.TabLayout;
 
@@ -68,7 +67,7 @@ public class HomeView extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
-        FloatingActionButton fab = findViewById(R.id.fabdone);
+        FloatingActionButton fab = findViewById(R.id.fabwrite);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

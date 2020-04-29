@@ -126,7 +126,9 @@ public class CommentUser extends AppCompatActivity{
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                StringRequest request = new StringRequest(Request.Method.POST, prefget.getString("app_base_url", BaseUrlConfig.BaseUrl) + BaseUrlConfig.USER_COMMENT, new Response.Listener<String>() {
+                StringRequest request = new StringRequest(Request.Method.POST, prefget.getString("app_base_url", BaseUrlConfig.BaseUrl),
+                        //+ BaseUrlConfig.USER_COMMENT,
+                        new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         hideDialog();

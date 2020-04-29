@@ -122,7 +122,9 @@ public class UserProfile extends AppCompatActivity {
         progressDialog.setMessage("Update your profile. . .");
         dialogShow();
 
-        StringRequest request = new StringRequest(Request.Method.POST, prefget.getString("app_base_url", BaseUrlConfig.BaseUrl) + BaseUrlConfig.UPDATE, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, prefget.getString("app_base_url", BaseUrlConfig.BaseUrl),
+                //+ BaseUrlConfig.UPDATE,
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 hideDialog();
@@ -202,7 +204,9 @@ public class UserProfile extends AppCompatActivity {
         progressDialog.setMessage(getResources().getString(R.string.loading_upload_image));
         progressDialog.show();
 
-        StringRequest request = new StringRequest(Request.Method.POST, prefget.getString("app_base_url", BaseUrlConfig.BaseUrl) + BaseUrlConfig.UPDATE_IMAGE_USERS, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, prefget.getString("app_base_url", BaseUrlConfig.BaseUrl),
+                //+ BaseUrlConfig.UPDATE_IMAGE_USERS,
+                new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 progressDialog.dismiss();
