@@ -18,8 +18,12 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
-
+        android:theme="@style/MyMaterialTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".ui.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/MyMaterialTheme.NoActionBar"></activity>
         <activity
             android:name=".ui.AppStart"
             android:label="@string/app_name"
@@ -39,11 +43,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.HomeView" />
         </activity>
-
         <activity
             android:name=".ui.UserLogin"
             android:noHistory="true" />
-
         <activity
             android:name=".ui.UserRegister"
             android:noHistory="true" />
@@ -70,7 +72,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.HomeView" />
         </activity>
-
         <activity android:name=".ui.CategoryAll" />
         <activity android:name=".ui.Favorited" />
         <activity android:name=".ui.SearchView" />
