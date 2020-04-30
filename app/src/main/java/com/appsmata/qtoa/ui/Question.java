@@ -2,6 +2,7 @@ package com.appsmata.qtoa.ui;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.annotation.Nullable;
@@ -15,6 +16,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -247,37 +249,46 @@ public class Question extends AppCompatActivity {
         });
     }
 
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String source) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(source);
+        }
+    }
+
     @SuppressLint("NewApi")
     private void displayData() {
         actionBar.setTitle(Question.title );
         post_title.setText(Question.title);
 
         TextView post_what = new TextView(this);
-        post_what.setText(Html.fromHtml(Question.what, Html.FROM_HTML_MODE_COMPACT));
+        post_what.setText(fromHtml(Question.what));
         post_what.setTextSize(15);
         post_what.setPadding(20, 5, 20, 5);
         post_meta.addView(post_what);
 
         TextView post_when = new TextView(this);
-        post_when.setText(Html.fromHtml(Question.when, Html.FROM_HTML_MODE_COMPACT));
+        post_when.setText(fromHtml(Question.when));
         post_when.setTextSize(15);
         post_when.setPadding(20, 5, 20, 5);
         post_meta.addView(post_when);
 
         if (!Question.where.isEmpty()) {
             TextView post_where = new TextView(this);
-            post_where.setText(Html.fromHtml(Question.where, Html.FROM_HTML_MODE_COMPACT));
+            post_where.setText(fromHtml(Question.where));
             post_where.setTextSize(15);
             post_where.setPadding(20, 5, 20, 5);
             post_meta.addView(post_where);
         }
 
         TextView post_who = new TextView(this);
-        post_who.setText(Html.fromHtml(Question.who, Html.FROM_HTML_MODE_COMPACT));
+        post_who.setText(fromHtml(Question.who));
         post_who.setTextSize(15);
         post_meta.addView(post_who);
 
-        post_content.setText(Html.fromHtml(Question.content, Html.FROM_HTML_MODE_COMPACT));
+        post_content.setText(fromHtml(Question.content));
         String[] MyTags = TextUtils.split(Question.tags, ",");
 
         for (int i = 0; i < MyTags.length; i++){
