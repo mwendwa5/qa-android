@@ -4,7 +4,10 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Build;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -63,6 +66,15 @@ public class ListsQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         return viewHolder;
     }
 
+    @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String source) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(source);
+        }
+    }
+
     @SuppressLint("NewApi")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
@@ -73,7 +85,11 @@ public class ListsQuestionsAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         view.post_title.setText(Question.title);
         view.post_netvotes.setText(Question.netvotes);
         view.post_acount.setText(Question.acount);
-        view.post_details.setText(Html.fromHtml(details, Html.FROM_HTML_MODE_COMPACT));
+        view.post_details.setText(fromHtml(details));
+        //view.post_details.setText(Html.fromHtml(details, Html.FROM_HTML_MODE_COMPACT));  Build.VERSION_CODES.N
+        //view.post_details.setText(Html.fromHtml(details, Html.FROM_HTML_MODE_LEGACY));
+//        if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) { view.post_details.setText(Html.fromHtml(details, Html.FROM_HTML_MODE_LEGACY)); }
+//        else { view.post_details.setText(Html.fromHtml(details, Html.FROM_HTML_MODE_COMPACT)); }
 
         if (!Question.tags.isEmpty()) {
             String[] MyTags = TextUtils.split(Question.tags, ",");
