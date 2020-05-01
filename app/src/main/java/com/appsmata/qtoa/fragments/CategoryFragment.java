@@ -32,7 +32,7 @@ public class CategoryFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.posts_fragment_tabs, container, false);
 
-        RecyclerView itemsRecyclerView = view.findViewById(R.id.posts_recycler_view);
+        RecyclerView itemsRecyclerView = view.findViewById(R.id.posts_recycler);
         itemsRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         itemsRecyclerView.setLayoutManager(layoutManager);
