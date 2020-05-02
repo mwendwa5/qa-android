@@ -3,7 +3,9 @@ package com.appsmata.qtoa.adapters;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import androidx.recyclerview.widget.RecyclerView;
+import android.os.Build;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,15 @@ public class ListsAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return viewHolder;
     }
 
+  @SuppressWarnings("deprecation")
+    public static Spanned fromHtml(String source) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(source, Html.FROM_HTML_MODE_LEGACY);
+        } else {
+            return Html.fromHtml(source);
+        }
+    }
+
     @SuppressLint("NewApi")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
@@ -64,8 +75,8 @@ public class ListsAnswersAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         String details = listItem.what  + " " + listItem.when + " " + listItem.who;
 
         view.post_netvotes.setText(listItem.netvotes);
-        view.post_details.setText(Html.fromHtml(details, Html.FROM_HTML_MODE_COMPACT));
-        view.post_content.setText(Html.fromHtml(listItem.content, Html.FROM_HTML_MODE_COMPACT));
+        view.post_details.setText(fromHtml(details));
+        view.post_content.setText(fromHtml(listItem.content));
 
         view.layout_parent.setOnClickListener(new View.OnClickListener() {
             @Override
